@@ -8,16 +8,15 @@ const Sidebar = ({ currentTab, setCurrentTab }) => (
     <div className="p-4 border-b">
       <h1 className="text-2xl font-bold text-blue-600">TalentBridge</h1>
     </div>
-    
+
     <nav className="mt-8 space-y-1 px-2">
       {navItems.map((item) => (
         <Link
           key={item.name}
           to={item.path}
           className={`flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 
-            hover:text-blue-600 transition-colors ${
-            currentTab === item.name.toLowerCase() ? 'bg-blue-50 text-blue-600' : ''
-          }`}
+              hover:text-blue-600 transition-colors ${currentTab === item.name.toLowerCase() ? 'bg-blue-50 text-blue-600' : ''
+            }`}
           onClick={() => setCurrentTab(item.name.toLowerCase())}
         >
           <item.icon className="w-5 h-5 mr-3" />
@@ -25,7 +24,7 @@ const Sidebar = ({ currentTab, setCurrentTab }) => (
         </Link>
       ))}
     </nav>
-    
+
     <div className="mt-8 p-4 border-t">
       <p className="text-sm text-gray-600 mb-2">Quick Stats</p>
       <div className="space-y-2">

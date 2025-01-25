@@ -1,12 +1,27 @@
 // src/components/dashboard/Analytics/Analytics.jsx
 import React from 'react';
-import { Line, Bar } from 'recharts';
-import { Doughnut } from 'react-chartjs-2'; // Fixing the import
-import { 
+import {
+  Line,
+  Bar,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  LineChart,
+  BarChart,
+  ResponsiveContainer
+} from 'recharts';
+import { Chart as ChartJS, ArcElement, Tooltip as ChartTooltip, Legend as ChartLegend } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
+import {
   ArrowUpIcon,
   ArrowDownIcon,
   AdjustmentsHorizontalIcon
 } from '@heroicons/react/24/outline';
+
+// Register Chart.js components
+ChartJS.register(ArcElement, ChartTooltip, ChartLegend);
 
 const Analytics = () => {
   const placementData = [
@@ -35,18 +50,17 @@ const Analytics = () => {
       {/* KPI Cards */}
       <div className="grid grid-cols-4 gap-6">
         {[{ title: 'Total Placements', value: '1,845', change: '+12%', positive: true },
-          { title: 'Average Package', value: '₹12.5L', change: '+8%', positive: true },
-          { title: 'Applications', value: '2,450', change: '-5%', positive: false },
-          { title: 'Success Rate', value: '78%', change: '+3%', positive: true }
+        { title: 'Average Package', value: '₹12.5L', change: '+8%', positive: true },
+        { title: 'Applications', value: '2,450', change: '-5%', positive: false },
+        { title: 'Success Rate', value: '78%', change: '+3%', positive: true }
         ].map((kpi, index) => (
           <div key={index} className="bg-white rounded-xl shadow-sm p-6">
             <p className="text-gray-600">{kpi.title}</p>
             <h3 className="text-2xl font-bold mt-2">{kpi.value}</h3>
-            <div className={`flex items-center mt-2 ${
-              kpi.positive ? 'text-green-600' : 'text-red-600'
-            }`}>
-              {kpi.positive ? <ArrowUpIcon className="w-4 h-4 mr-1" /> : 
-                             <ArrowDownIcon className="w-4 h-4 mr-1" />}
+            <div className={`flex items-center mt-2 ${kpi.positive ? 'text-green-600' : 'text-red-600'
+              }`}>
+              {kpi.positive ? <ArrowUpIcon className="w-4 h-4 mr-1" /> :
+                <ArrowDownIcon className="w-4 h-4 mr-1" />}
               <span>{kpi.change} vs last year</span>
             </div>
           </div>
@@ -64,18 +78,20 @@ const Analytics = () => {
             </button>
           </div>
           <div className="h-80">
-            <Line
-              data={placementData}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="placements" stroke="#3B82F6" />
-              <Line type="monotone" dataKey="applications" stroke="#6366F1" />
-            </Line>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart
+                data={placementData}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="placements" stroke="#3B82F6" />
+                <Line type="monotone" dataKey="applications" stroke="#6366F1" />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
@@ -88,18 +104,20 @@ const Analytics = () => {
             </button>
           </div>
           <div className="h-80">
-            <Bar
-              data={departmentStats}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="placed" fill="#3B82F6" />
-              <Bar dataKey="total" fill="#6366F1" />
-            </Bar>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={departmentStats}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="placed" fill="#3B82F6" />
+                <Bar dataKey="total" fill="#6366F1" />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
@@ -128,9 +146,9 @@ const Analytics = () => {
           <h3 className="text-lg font-semibold mb-6">Top Recruiting Companies</h3>
           <div className="space-y-4">
             {[{ name: 'Google', hired: 45, growth: '+12%' },
-              { name: 'Microsoft', hired: 38, growth: '+8%' },
-              { name: 'Amazon', hired: 42, growth: '+15%' },
-              { name: 'Goldman Sachs', hired: 28, growth: '+5%' }
+            { name: 'Microsoft', hired: 38, growth: '+8%' },
+            { name: 'Amazon', hired: 42, growth: '+15%' },
+            { name: 'Goldman Sachs', hired: 28, growth: '+5%' }
             ].map((company, index) => (
               <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                 <div>

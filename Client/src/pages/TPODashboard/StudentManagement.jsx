@@ -1,15 +1,15 @@
 // src/components/dashboard/StudentManagement/StudentManagement.jsx
 import React, { useState } from 'react';
-import { 
-  UserGroupIcon, 
-  AcademicCapIcon, 
+import {
+  UserGroupIcon,
+  AcademicCapIcon,
   CheckCircleIcon,
   DocumentTextIcon
 } from '@heroicons/react/24/outline';
 
 const StudentManagement = () => {
   const [filter, setFilter] = useState('all');
-  
+
   const stats = [
     { title: 'Total Students', value: '2,547', icon: UserGroupIcon },
     { title: 'Verified Profiles', value: '2,100', icon: CheckCircleIcon },
@@ -53,7 +53,7 @@ const StudentManagement = () => {
             <option value="4">4th Year</option>
           </select>
         </div>
-        <input 
+        <input
           type="search"
           placeholder="Search students..."
           className="px-4 py-2 border rounded-lg w-64"
